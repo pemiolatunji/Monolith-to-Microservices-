@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: reverseproxy
+  name: reverseproxy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: reverseproxy
+  template:
+    metadata:
+      labels:
+        service: reverseproxy
+    spec:
+      containers:
+      - image: pemiolatunji/reverseproxy:latest
+        name: reverseproxy
+        imagePullPolicy: Always          
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "10240Mi"
+            cpu: "500m"       
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
+
+
+        
+         
+
